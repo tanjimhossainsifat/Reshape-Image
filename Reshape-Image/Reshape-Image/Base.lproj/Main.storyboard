@@ -18,23 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7P-yU-l5P">
-                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items>
-                                    <tabBarItem title="Reshape" id="Ng8-AK-Joj"/>
-                                    <tabBarItem tag="1" title="Rotate" id="kcz-dX-8Fr"/>
-                                    <tabBarItem tag="2" title="Resize" id="aRl-UE-ueX"/>
-                                    <tabBarItem tag="4" title="Save" id="9wG-1H-Dbu"/>
-                                </items>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="wra-e6-EAe"/>
-                                </connections>
-                            </tabBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ndX-Dg-InW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ndX-Dg-InW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="654"/>
                             </imageView>
                             <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sticker" translatesAutoresizingMaskIntoConstraints="NO" id="rkP-54-wUA">
                                 <rect key="frame" x="62" y="154" width="250" height="250"/>
@@ -99,8 +84,33 @@
                                     <outletCollection property="gestureRecognizers" destination="CyU-Al-zXL" appends="YES" id="Lq5-jB-GIY"/>
                                 </connections>
                             </imageView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7P-yU-l5P">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="hEU-66-Dtr"/>
+                                </constraints>
+                                <items>
+                                    <tabBarItem title="Reshape" id="Ng8-AK-Joj"/>
+                                    <tabBarItem tag="1" title="Rotate" id="kcz-dX-8Fr"/>
+                                    <tabBarItem tag="2" title="Resize" id="aRl-UE-ueX"/>
+                                    <tabBarItem tag="4" title="Save" id="9wG-1H-Dbu"/>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="wra-e6-EAe"/>
+                                </connections>
+                            </tabBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="p7P-yU-l5P" secondAttribute="bottom" id="0Z9-U2-5ji"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="p7P-yU-l5P" secondAttribute="trailing" id="1Fz-pG-yC4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="ndX-Dg-InW" secondAttribute="top" constant="20" id="GAQ-nW-b9x"/>
+                            <constraint firstItem="ndX-Dg-InW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fWr-17-HXA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ndX-Dg-InW" secondAttribute="bottom" constant="13" id="hsJ-FJ-xEe"/>
+                            <constraint firstItem="p7P-yU-l5P" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kAe-fy-MbA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ndX-Dg-InW" secondAttribute="trailing" id="s7P-ax-EJU"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>

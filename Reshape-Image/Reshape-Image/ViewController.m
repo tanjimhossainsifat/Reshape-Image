@@ -20,6 +20,9 @@ typedef enum {
 
 
 @interface ViewController ()
+{
+    CAShapeLayer *borderLayer;
+}
 
 @property (nonatomic, strong) UIView *maskView;
 @property (nonatomic, assign) OperationType currentOperationType;
@@ -37,10 +40,26 @@ typedef enum {
     
     [self initControls];
     
+    
     self.imageView.layer.quadrilateral = AGKQuadMake(self.topLeftControl.center,
                                                      self.topRightControl.center,
                                                      self.bottomRightControl.center,
                                                      self.bottomLeftControl.center);
+    
+    borderLayer = [[CAShapeLayer alloc] init];
+    borderLayer.lineWidth = 2.0;
+    borderLayer.strokeColor = [UIColor whiteColor].CGColor;
+    borderLayer.fillColor = [UIColor clearColor].CGColor;
+    [self.view.layer addSublayer:borderLayer];
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:self.topLeftControl.center];
+    [path addLineToPoint:self.topRightControl.center];
+    [path addLineToPoint:self.bottomRightControl.center];
+    [path addLineToPoint:self.bottomLeftControl.center];
+    [path closePath];
+    
+    borderLayer.path = [UIBezierPath bezierPathWithAGKQuad:self.imageView.layer.quadrilateral].CGPath;
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -201,6 +220,9 @@ typedef enum {
                                                      self.topRightControl.center,
                                                      self.bottomRightControl.center,
                                                      self.bottomLeftControl.center);
+    
+    
+    borderLayer.path = [UIBezierPath bezierPathWithAGKQuad:self.imageView.layer.quadrilateral].CGPath;
 }
 
 #pragma mark - UITabbarDelegte methods
@@ -237,6 +259,7 @@ typedef enum {
             
             //Save
             self.currentOperationType = Nothing;
+            [self loadViewForSave];
             UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 [self saveImageToLibrary];
@@ -293,6 +316,8 @@ typedef enum {
     self.centerTopControl.hidden = YES;
     self.centerRightControl.hidden = YES;
     self.centerBottomControl.hidden = YES;
+    
+    borderLayer.hidden = NO;
 }
 
 - (void) loadViewForRotate {
@@ -307,6 +332,8 @@ typedef enum {
     self.centerRightControl.hidden = YES;
     self.centerBottomControl.hidden = YES;
     
+    borderLayer.hidden = NO;
+    
 }
 
 - (void) loadViewForResize {    
@@ -320,9 +347,28 @@ typedef enum {
     self.centerRightControl.hidden = NO;
     self.centerBottomControl.hidden = NO;
     
+    borderLayer.hidden = NO;
+    
+}
+
+- (void) loadViewForSave {
+    self.topLeftControl.hidden = YES;
+    self.topRightControl.hidden = YES;
+    self.bottomRightControl.hidden = YES;
+    self.bottomLeftControl.hidden = YES;
+    
+    self.centerLeftControl.hidden = YES;
+    self.centerTopControl.hidden = YES;
+    self.centerRightControl.hidden = YES;
+    self.centerBottomControl.hidden = YES;
+    
+    borderLayer.hidden = YES;
+    
 }
 
 - (void) saveImageToLibrary {
+    
+    self.tabbar.hidden = YES;
     
     UIImage *backgroundImage = self.backgroundImageView.image;
     UIImage *maskImage = [UIImage imageWithCGImage:self.imageView.image.CGImage];
@@ -342,7 +388,10 @@ typedef enum {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Image Saved Successfully to gallery" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:okAction];
             
-            [self presentViewController:alert animated:YES completion:nil];
+            [self presentViewController:alert animated:YES completion:^{
+                self.tabbar.hidden = NO;
+            }];
+            
         }
     };
     
@@ -375,5 +424,6 @@ typedef enum {
     
     return image;
 }
+
 
 @end
