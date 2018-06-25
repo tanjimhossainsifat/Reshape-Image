@@ -236,7 +236,7 @@ typedef enum {
         {
             
             //Save
-            
+            self.currentOperationType = Nothing;
             UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 [self saveImageToLibrary];
@@ -325,11 +325,11 @@ typedef enum {
 - (void) saveImageToLibrary {
     
     UIImage *backgroundImage = self.backgroundImageView.image;
-    UIImage *maskImage = self.imageView.image;
+    UIImage *maskImage = [UIImage imageWithCGImage:self.imageView.image.CGImage];
     CGSize imageSize = CGSizeMake(backgroundImage.size.width, backgroundImage.size.height);
     
     UIImage *mergedImage = [self mergeImage:maskImage overImage:backgroundImage inSize:imageSize];
-    
+    mergedImage = [self takeSnapshotOfView:self.view];
     NSArray *excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypeMessage];
     
     UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[mergedImage] applicationActivities:nil];
@@ -364,6 +364,16 @@ typedef enum {
     
     return viewImage;
     
+}
+
+- (UIImage *)takeSnapshotOfView:(UIView *)view
+{
+    UIGraphicsBeginImageContext(CGSizeMake(view.frame.size.width, view.frame.size.height));
+    [view drawViewHierarchyInRect:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height) afterScreenUpdates:YES];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 @end
