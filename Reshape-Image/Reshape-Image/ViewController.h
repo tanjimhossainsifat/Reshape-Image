@@ -12,11 +12,15 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIView *topLeftControl;
-@property (weak, nonatomic) IBOutlet UIView *topRightControl;
-@property (weak, nonatomic) IBOutlet UIView *bottomRightControl;
-@property (weak, nonatomic) IBOutlet UIView *bottomLeftControl;
+@property (weak, nonatomic) IBOutlet UIImageView *topLeftControl;
+@property (weak, nonatomic) IBOutlet UIImageView *topRightControl;
+@property (weak, nonatomic) IBOutlet UIImageView *bottomRightControl;
+@property (weak, nonatomic) IBOutlet UIImageView *bottomLeftControl;
 
+@property (weak, nonatomic) IBOutlet UIImageView *centerLeftControl;
+@property (weak, nonatomic) IBOutlet UIImageView *centerTopControl;
+@property (weak, nonatomic) IBOutlet UIImageView *centerRightControl;
+@property (weak, nonatomic) IBOutlet UIImageView *centerBottomControl;
 
 @end
 

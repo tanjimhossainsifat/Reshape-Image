@@ -9,10 +9,21 @@
 #import "ViewController.h"
 #import <AGGeometryKit/AGGeometryKit.h>
 
+typedef enum {
+    
+    Reshape = 1,
+    Rotate = 2,
+    Resize = 3,
+    Move = 4,
+    Nothing = 5
+    
+}OperationType;
+
 
 @interface ViewController ()
 
 @property (nonatomic, strong) UIView *maskView;
+@property (nonatomic, assign) OperationType currentOperationType;
 
 @end
 
@@ -24,13 +35,12 @@
     
     [self.imageView.layer ensureAnchorPointIsSetToZero];
     
+    [self initControls];
+    
     self.imageView.layer.quadrilateral = AGKQuadMake(self.topLeftControl.center,
                                                      self.topRightControl.center,
                                                      self.bottomRightControl.center,
                                                      self.bottomLeftControl.center);
-    
-//    [self createOverlay];
-    //[self updateOverlay];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -54,46 +64,73 @@
     controlPointView.highlighted = recognizer.state == UIGestureRecognizerStateChanged;
     
     CGPoint translation = [recognizer translationInView:self.view];
-    controlPointView.centerX += translation.x;
-    controlPointView.centerY += translation.y;
+    
+    if(self.currentOperationType == Reshape) {
+        
+        controlPointView.centerX += translation.x;
+        controlPointView.centerY += translation.y;
+    }
+    else if(self.currentOperationType == Rotate) {
+        
+        
+    }
+    else if(self.currentOperationType == Resize) {
+        
+        if(controlPointView == self.centerLeftControl) {
+            
+            self.topLeftControl.centerX += translation.x;
+            //self.topLeftControl.centerY += translation.y;
+            self.bottomLeftControl.centerX += translation.x;
+            //self.bottomLeftControl.centerY += translation.y;
+        }
+        else if(controlPointView == self.centerTopControl) {
+            
+            //self.topLeftControl.centerX += translation.x;
+            self.topLeftControl.centerY += translation.y;
+            //self.topRightControl.centerX += translation.x;
+            self.topRightControl.centerY += translation.y;
+        }
+        else if(controlPointView == self.centerRightControl) {
+            
+            self.topRightControl.centerX += translation.x;
+            //self.topRightControl.centerY += translation.y;
+            self.bottomRightControl.centerX += translation.x;
+            //self.bottomRightControl.centerY += translation.y;
+        }
+        else if(controlPointView == self.centerBottomControl) {
+            
+            //self.bottomRightControl.centerX += translation.x;
+            self.bottomRightControl.centerY += translation.y;
+            //self.bottomLeftControl.centerX += translation.x;
+            self.bottomLeftControl.centerY += translation.y;
+        }
+        
+    }
+    else if(self.currentOperationType == Move) {
+        
+        self.topLeftControl.centerX += translation.x;
+        self.topLeftControl.centerY += translation.y;
+        self.topRightControl.centerX += translation.x;
+        self.topRightControl.centerY += translation.y;
+        self.bottomRightControl.centerX += translation.x;
+        self.bottomRightControl.centerY += translation.y;
+        self.bottomLeftControl.centerX += translation.x;
+        self.bottomLeftControl.centerY += translation.y;
+        
+    }
+    
+    
+    
+    [self updateControlsByCornerControls];
+    
     [recognizer setTranslation:CGPointZero inView:self.view];
     
     self.imageView.layer.quadrilateral = AGKQuadMake(self.topLeftControl.center,
                                                      self.topRightControl.center,
                                                      self.bottomRightControl.center,
                                                      self.bottomLeftControl.center);
-    
-//    [self updateOverlay];
 }
 
-- (void)createOverlay
-{
-    self.maskView = [[UIView alloc] init];
-    self.maskView.center = self.imageView.center;
-    self.maskView.layer.shadowColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5].CGColor;
-    self.maskView.layer.shadowOpacity = 1.0;
-    self.maskView.layer.shadowRadius = 0.0;
-    self.maskView.layer.shadowOffset = CGSizeZero;
-    self.maskView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
-    self.maskView.userInteractionEnabled = NO;
-    self.maskView.hidden = YES;
-    [self.view insertSubview:self.maskView aboveSubview:self.imageView];
-}
-
-- (void)updateOverlay
-{
-    UIColor *redColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5];
-    UIColor *greenColor = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:0.5];
-    
-    AGKQuad quad = AGKQuadMake(self.topLeftControl.center,
-                               self.topRightControl.center,
-                               self.bottomRightControl.center,
-                               self.bottomLeftControl.center);
-    
-    self.maskView.layer.position = CGPointZero;
-    self.maskView.layer.shadowPath = [UIBezierPath bezierPathWithAGKQuad:quad].CGPath;
-    self.maskView.layer.shadowColor = AGKQuadIsConvex(quad) ? greenColor.CGColor : redColor.CGColor;
-}
 
 #pragma mark - UITabbarDelegte methods
 
@@ -105,21 +142,30 @@
         case 0:
         {
             //Reshape
+            self.currentOperationType = Reshape;
+            [self loadViewForReshape];
+            
         }
             break;
         case 1:
         {
             //Rotate
+            self.currentOperationType = Rotate;
+            [self loadViewForRotate];
         }
             break;
         case 2:
         {
             //Resize
+            self.currentOperationType = Resize;
+            [self loadViewForResize];
         }
             break;
         case 3:
         {
             //Move
+            self.currentOperationType = Move;
+            [self loadViewForMove];
         }
             break;
         case 4:
@@ -150,6 +196,82 @@
             break;
     }
     
+}
+
+- (void) initControls {
+    
+    self.topLeftControl.center = self.imageView.frame.origin;
+    self.topRightControl.center = CGPointMake(self.imageView.frame.origin.x+self.imageView.frame.size.width, self.imageView.frame.origin.y);
+    self.bottomRightControl.center = CGPointMake(self.imageView.frame.origin.x+self.imageView.frame.size.width, self.imageView.frame.origin.y + self.imageView.frame.size.height);
+    self.bottomLeftControl.center = CGPointMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y + self.imageView.frame.size.height);
+    
+    self.centerLeftControl.center = CGPointMake((self.topLeftControl.centerX + self.bottomLeftControl.centerX)/2, (self.topLeftControl.centerY+self.bottomLeftControl.centerY)/2);
+    self.centerTopControl.center = CGPointMake((self.topLeftControl.centerX + self.topRightControl.centerX)/2, (self.topLeftControl.centerY+self.topRightControl.centerY)/2);
+    self.centerRightControl.center = CGPointMake((self.topRightControl.centerX + self.bottomRightControl.centerX)/2, (self.topRightControl.centerY+self.bottomRightControl.centerY)/2);
+    self.centerBottomControl.center = CGPointMake((self.bottomLeftControl.centerX + self.bottomRightControl.centerX)/2, (self.bottomLeftControl.centerY+self.bottomRightControl.centerY)/2);
+}
+
+- (void) updateControlsByCornerControls {
+    
+    self.centerLeftControl.center = CGPointMake((self.topLeftControl.centerX + self.bottomLeftControl.centerX)/2, (self.topLeftControl.centerY+self.bottomLeftControl.centerY)/2);
+    self.centerTopControl.center = CGPointMake((self.topLeftControl.centerX + self.topRightControl.centerX)/2, (self.topLeftControl.centerY+self.topRightControl.centerY)/2);
+    self.centerRightControl.center = CGPointMake((self.topRightControl.centerX + self.bottomRightControl.centerX)/2, (self.topRightControl.centerY+self.bottomRightControl.centerY)/2);
+    self.centerBottomControl.center = CGPointMake((self.bottomLeftControl.centerX + self.bottomRightControl.centerX)/2, (self.bottomLeftControl.centerY+self.bottomRightControl.centerY)/2);
+}
+
+- (void) loadViewForReshape {
+    
+    self.topLeftControl.hidden = NO;
+    self.topRightControl.hidden = NO;
+    self.bottomRightControl.hidden = NO;
+    self.bottomLeftControl.hidden = NO;
+    
+    self.centerLeftControl.hidden = YES;
+    self.centerTopControl.hidden = YES;
+    self.centerRightControl.hidden = YES;
+    self.centerBottomControl.hidden = YES;
+}
+
+- (void) loadViewForRotate {
+    
+    self.topLeftControl.hidden = NO;
+    self.topRightControl.hidden = NO;
+    self.bottomRightControl.hidden = NO;
+    self.bottomLeftControl.hidden = NO;
+    
+    self.centerLeftControl.hidden = YES;
+    self.centerTopControl.hidden = YES;
+    self.centerRightControl.hidden = YES;
+    self.centerBottomControl.hidden = YES;
+    
+}
+
+- (void) loadViewForResize {
+    
+    
+    self.topLeftControl.hidden = YES;
+    self.topRightControl.hidden = YES;
+    self.bottomRightControl.hidden = YES;
+    self.bottomLeftControl.hidden = YES;
+    
+    self.centerLeftControl.hidden = NO;
+    self.centerTopControl.hidden = NO;
+    self.centerRightControl.hidden = NO;
+    self.centerBottomControl.hidden = NO;
+    
+}
+
+- (void) loadViewForMove {
+    
+    self.topLeftControl.hidden = YES;
+    self.topRightControl.hidden = YES;
+    self.bottomRightControl.hidden = YES;
+    self.bottomLeftControl.hidden = YES;
+    
+    self.centerLeftControl.hidden = YES;
+    self.centerTopControl.hidden = YES;
+    self.centerRightControl.hidden = YES;
+    self.centerBottomControl.hidden = YES;
 }
 
 - (void) saveImageToLibrary {
