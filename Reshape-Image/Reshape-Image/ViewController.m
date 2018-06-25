@@ -34,8 +34,6 @@ typedef enum {
 {
     [super viewDidLoad];
     
-    
-    
     [self.imageView.layer ensureAnchorPointIsSetToZero];
     
     [self initControls];
@@ -65,12 +63,12 @@ typedef enum {
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    
-    
     self.tabbar.selectedItem = [self.tabbar.items objectAtIndex:0];
     self.currentOperationType = Reshape;
     [self loadViewForReshape];
 }
+
+#pragma mark - Gesture
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -248,7 +246,7 @@ typedef enum {
 }
 
 
-
+#pragma mark - UI related methods
 - (void) initControls {
     
     self.topLeftControl.center = self.imageView.frame.origin;
@@ -328,10 +326,10 @@ typedef enum {
     
 }
 
+#pragma mark - Save Image
 - (void) saveImageToLibrary {
     
     self.tabbar.hidden = YES;
-    
     UIImage *mergedImage = [self takeSnapshotOfView:self.view];
     NSArray *excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypeMessage];
     
@@ -356,21 +354,6 @@ typedef enum {
     
 }
 
--(UIImage*)mergeImage:(UIImage*)mask overImage:(UIImage*)source inSize:(CGSize)size
-{
-    //Capture image context ref
-    UIGraphicsBeginImageContext(size);
-    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    //Draw images onto the context
-    [source drawInRect:CGRectMake(0, 0, source.size.width, source.size.height)];
-    [mask drawInRect:CGRectMake(0, 0, mask.size.width, mask.size.height)];
-    
-    return viewImage;
-    
-}
 
 - (UIImage *)takeSnapshotOfView:(UIView *)view
 {

@@ -1,2 +1,4 @@
 # Reshape-Image
-This app will demonstrate how to reshape(scale, rotate, transform etc) an image and merge to background image
+This app will demonstrate how to reshape, rotate and resize an image and merge to background image
+
+![Demo](Demo/Demo.gif)

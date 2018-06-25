@@ -85,16 +85,16 @@
                                 </connections>
                             </imageView>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7P-yU-l5P">
-                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="597" width="375" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="hEU-66-Dtr"/>
+                                    <constraint firstAttribute="height" constant="70" id="hEU-66-Dtr"/>
                                 </constraints>
                                 <items>
-                                    <tabBarItem title="Reshape" id="Ng8-AK-Joj"/>
-                                    <tabBarItem tag="1" title="Rotate" id="kcz-dX-8Fr"/>
-                                    <tabBarItem tag="2" title="Resize" id="aRl-UE-ueX"/>
-                                    <tabBarItem tag="4" title="Save" id="9wG-1H-Dbu"/>
+                                    <tabBarItem title="Reshape" image="reshape" id="Ng8-AK-Joj"/>
+                                    <tabBarItem tag="1" title="Rotate" image="rotate" id="kcz-dX-8Fr"/>
+                                    <tabBarItem tag="2" title="Resize" image="resize" id="aRl-UE-ueX"/>
+                                    <tabBarItem tag="4" title="Save" image="save" id="9wG-1H-Dbu"/>
                                 </items>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="wra-e6-EAe"/>
@@ -190,6 +190,10 @@
         <image name="background" width="368" height="654"/>
         <image name="controlpoint" width="45" height="45"/>
         <image name="controlpoint_h" width="45" height="45"/>
+        <image name="reshape" width="50" height="50"/>
+        <image name="resize" width="50" height="50"/>
+        <image name="rotate" width="50" height="50"/>
+        <image name="save" width="50" height="50"/>
         <image name="sticker" width="128" height="128"/>
     </resources>
 </document>
