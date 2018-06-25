@@ -26,7 +26,6 @@
                                     <tabBarItem title="Reshape" id="Ng8-AK-Joj"/>
                                     <tabBarItem tag="1" title="Rotate" id="kcz-dX-8Fr"/>
                                     <tabBarItem tag="2" title="Resize" id="aRl-UE-ueX"/>
-                                    <tabBarItem tag="3" title="Move" id="JxN-z5-gAi"/>
                                     <tabBarItem tag="4" title="Save" id="9wG-1H-Dbu"/>
                                 </items>
                                 <connections>
@@ -113,6 +112,7 @@
                         <outlet property="centerRightControl" destination="qVU-L8-ciG" id="HSU-wY-scp"/>
                         <outlet property="centerTopControl" destination="Kol-Cs-fHO" id="aLW-Vy-B3O"/>
                         <outlet property="imageView" destination="rkP-54-wUA" id="vwn-cq-Eon"/>
+                        <outlet property="tabbar" destination="p7P-yU-l5P" id="9RK-Js-qkp"/>
                         <outlet property="topLeftControl" destination="opt-SX-lLI" id="hq0-pM-GVt"/>
                         <outlet property="topRightControl" destination="bZM-nQ-BT6" id="wKU-x3-Opn"/>
                     </connections>

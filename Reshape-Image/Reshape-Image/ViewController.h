@@ -22,5 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *centerRightControl;
 @property (weak, nonatomic) IBOutlet UIImageView *centerBottomControl;
 
+
+@property (weak, nonatomic) IBOutlet UITabBar *tabbar;
+
 @end
 

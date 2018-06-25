@@ -14,8 +14,7 @@ typedef enum {
     Reshape = 1,
     Rotate = 2,
     Resize = 3,
-    Move = 4,
-    Nothing = 5
+    Nothing = 4
     
 }OperationType;
 
@@ -24,7 +23,6 @@ typedef enum {
 
 @property (nonatomic, strong) UIView *maskView;
 @property (nonatomic, assign) OperationType currentOperationType;
-
 @end
 
 @implementation ViewController
@@ -32,6 +30,8 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
     
     [self.imageView.layer ensureAnchorPointIsSetToZero];
     
@@ -41,6 +41,16 @@ typedef enum {
                                                      self.topRightControl.center,
                                                      self.bottomRightControl.center,
                                                      self.bottomLeftControl.center);
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    
+    
+    self.tabbar.selectedItem = [self.tabbar.items objectAtIndex:0];
+    self.currentOperationType = Reshape;
+    [self loadViewForReshape];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -60,53 +70,115 @@ typedef enum {
 
 - (IBAction)panGestureChanged:(UIPanGestureRecognizer *)recognizer
 {
+    
+    
     UIImageView *controlPointView = (UIImageView *)[recognizer view];
     controlPointView.highlighted = recognizer.state == UIGestureRecognizerStateChanged;
     
     CGPoint translation = [recognizer translationInView:self.view];
     
-    if(self.currentOperationType == Reshape) {
+    if(self.currentOperationType == Reshape && controlPointView != self.imageView) {
         
         controlPointView.centerX += translation.x;
         controlPointView.centerY += translation.y;
     }
-    else if(self.currentOperationType == Rotate) {
+    else if(self.currentOperationType == Rotate && controlPointView != self.imageView) {
+            
+            CGPoint vector1 = CGPointMake(controlPointView.centerX-(self.imageView.frame.origin.x+self.imageView.frame.size.width/2), controlPointView.centerY-(self.imageView.frame.origin.y+self.imageView.frame.size.height/2));
+            
+            CGPoint nextControlPoint;
+            nextControlPoint.x = controlPointView.centerX + translation.x;
+            nextControlPoint.y = controlPointView.centerY + translation.y;
+            
+            CGPoint vector2 = CGPointMake(nextControlPoint.x-(self.imageView.frame.origin.x+self.imageView.frame.size.width/2), nextControlPoint.y-(self.imageView.frame.origin.y+self.imageView.frame.size.height/2));
+            
+            float angle1 = atan2f(vector1.x, vector1.y);
+            float angle2 = atan2f(vector2.x, vector2.y);
+            float rotationAngle =  -(angle2- angle1);
+            
+            [self.imageView.layer ensureAnchorPointIsSetToZero];
+            AGKQuad q = AGKQuadRotateAroundPoint(self.imageView.layer.quadrilateral, CGPointMake(self.imageView.frame.origin.x+self.imageView.frame.size.width/2, self.imageView.frame.origin.y+self.imageView.frame.size.height/2), rotationAngle);
+            
+            self.topLeftControl.center = q.tl;
+            self.topRightControl.center = q.tr;
+            self.bottomRightControl.center = q.br;
+            self.bottomLeftControl.center = q.bl;
+        
+        
+
+    }
+    else if(self.currentOperationType == Resize && controlPointView != self.imageView) {
+        
+        if((self.centerLeftControl.centerY < self.centerTopControl.centerY && self.centerLeftControl.centerY > self.centerBottomControl.centerY) ||
+           (self.centerLeftControl.centerY > self.centerTopControl.centerY && self.centerLeftControl.centerY < self.centerBottomControl.centerY)) {
+            
+            if(controlPointView == self.centerLeftControl) {
+                self.topLeftControl.centerX += translation.x;
+                //self.topLeftControl.centerY += translation.y;
+                self.bottomLeftControl.centerX += translation.x;
+                //self.bottomLeftControl.centerY += translation.y;
+            }
+            else if(controlPointView == self.centerTopControl) {
+                
+                //self.topLeftControl.centerX += translation.x;
+                self.topLeftControl.centerY += translation.y;
+                //self.topRightControl.centerX += translation.x;
+                self.topRightControl.centerY += translation.y;
+            }
+            else if(controlPointView == self.centerRightControl) {
+                
+                self.topRightControl.centerX += translation.x;
+                //self.topRightControl.centerY += translation.y;
+                self.bottomRightControl.centerX += translation.x;
+                //self.bottomRightControl.centerY += translation.y;
+            }
+            else if(controlPointView == self.centerBottomControl) {
+                
+                //self.bottomRightControl.centerX += translation.x;
+                self.bottomRightControl.centerY += translation.y;
+                //self.bottomLeftControl.centerX += translation.x;
+                self.bottomLeftControl.centerY += translation.y;
+            }
+            
+        }
+        
+        else {
+            
+            if(controlPointView == self.centerLeftControl) {
+                //self.topLeftControl.centerX += translation.x;
+                self.topLeftControl.centerY += translation.y;
+                //self.bottomLeftControl.centerX += translation.x;
+                self.bottomLeftControl.centerY += translation.y;
+            }
+            else if(controlPointView == self.centerTopControl) {
+                
+                self.topLeftControl.centerX += translation.x;
+                //self.topLeftControl.centerY += translation.y;
+                self.topRightControl.centerX += translation.x;
+                //self.topRightControl.centerY += translation.y;
+            }
+            else if(controlPointView == self.centerRightControl) {
+                
+                //self.topRightControl.centerX += translation.x;
+                self.topRightControl.centerY += translation.y;
+                //self.bottomRightControl.centerX += translation.x;
+                self.bottomRightControl.centerY += translation.y;
+            }
+            else if(controlPointView == self.centerBottomControl) {
+                
+                self.bottomRightControl.centerX += translation.x;
+                //self.bottomRightControl.centerY += translation.y;
+                self.bottomLeftControl.centerX += translation.x;
+                //self.bottomLeftControl.centerY += translation.y;
+            }
+        }
+        
         
         
     }
-    else if(self.currentOperationType == Resize) {
-        
-        if(controlPointView == self.centerLeftControl) {
-            
-            self.topLeftControl.centerX += translation.x;
-            //self.topLeftControl.centerY += translation.y;
-            self.bottomLeftControl.centerX += translation.x;
-            //self.bottomLeftControl.centerY += translation.y;
-        }
-        else if(controlPointView == self.centerTopControl) {
-            
-            //self.topLeftControl.centerX += translation.x;
-            self.topLeftControl.centerY += translation.y;
-            //self.topRightControl.centerX += translation.x;
-            self.topRightControl.centerY += translation.y;
-        }
-        else if(controlPointView == self.centerRightControl) {
-            
-            self.topRightControl.centerX += translation.x;
-            //self.topRightControl.centerY += translation.y;
-            self.bottomRightControl.centerX += translation.x;
-            //self.bottomRightControl.centerY += translation.y;
-        }
-        else if(controlPointView == self.centerBottomControl) {
-            
-            //self.bottomRightControl.centerX += translation.x;
-            self.bottomRightControl.centerY += translation.y;
-            //self.bottomLeftControl.centerX += translation.x;
-            self.bottomLeftControl.centerY += translation.y;
-        }
-        
-    }
-    else if(self.currentOperationType == Move) {
+    
+    
+    if(controlPointView == self.imageView) {
         
         self.topLeftControl.centerX += translation.x;
         self.topLeftControl.centerY += translation.y;
@@ -130,7 +202,6 @@ typedef enum {
                                                      self.bottomRightControl.center,
                                                      self.bottomLeftControl.center);
 }
-
 
 #pragma mark - UITabbarDelegte methods
 
@@ -159,13 +230,6 @@ typedef enum {
             //Resize
             self.currentOperationType = Resize;
             [self loadViewForResize];
-        }
-            break;
-        case 3:
-        {
-            //Move
-            self.currentOperationType = Move;
-            [self loadViewForMove];
         }
             break;
         case 4:
@@ -198,6 +262,8 @@ typedef enum {
     
 }
 
+
+
 - (void) initControls {
     
     self.topLeftControl.center = self.imageView.frame.origin;
@@ -205,10 +271,7 @@ typedef enum {
     self.bottomRightControl.center = CGPointMake(self.imageView.frame.origin.x+self.imageView.frame.size.width, self.imageView.frame.origin.y + self.imageView.frame.size.height);
     self.bottomLeftControl.center = CGPointMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y + self.imageView.frame.size.height);
     
-    self.centerLeftControl.center = CGPointMake((self.topLeftControl.centerX + self.bottomLeftControl.centerX)/2, (self.topLeftControl.centerY+self.bottomLeftControl.centerY)/2);
-    self.centerTopControl.center = CGPointMake((self.topLeftControl.centerX + self.topRightControl.centerX)/2, (self.topLeftControl.centerY+self.topRightControl.centerY)/2);
-    self.centerRightControl.center = CGPointMake((self.topRightControl.centerX + self.bottomRightControl.centerX)/2, (self.topRightControl.centerY+self.bottomRightControl.centerY)/2);
-    self.centerBottomControl.center = CGPointMake((self.bottomLeftControl.centerX + self.bottomRightControl.centerX)/2, (self.bottomLeftControl.centerY+self.bottomRightControl.centerY)/2);
+    [self updateControlsByCornerControls];
 }
 
 - (void) updateControlsByCornerControls {
@@ -246,9 +309,7 @@ typedef enum {
     
 }
 
-- (void) loadViewForResize {
-    
-    
+- (void) loadViewForResize {    
     self.topLeftControl.hidden = YES;
     self.topRightControl.hidden = YES;
     self.bottomRightControl.hidden = YES;
@@ -259,19 +320,6 @@ typedef enum {
     self.centerRightControl.hidden = NO;
     self.centerBottomControl.hidden = NO;
     
-}
-
-- (void) loadViewForMove {
-    
-    self.topLeftControl.hidden = YES;
-    self.topRightControl.hidden = YES;
-    self.bottomRightControl.hidden = YES;
-    self.bottomLeftControl.hidden = YES;
-    
-    self.centerLeftControl.hidden = YES;
-    self.centerTopControl.hidden = YES;
-    self.centerRightControl.hidden = YES;
-    self.centerBottomControl.hidden = YES;
 }
 
 - (void) saveImageToLibrary {
