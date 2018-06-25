@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UIGestureRecognizerDelegate, UITabBarDelegate>
+
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *stickerImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *topLeftControl;
+@property (weak, nonatomic) IBOutlet UIImageView *topRightControl;
+@property (weak, nonatomic) IBOutlet UIImageView *bottomRightControl;
+@property (weak, nonatomic) IBOutlet UIImageView *bottomLeftControl;
 
 
 @end
