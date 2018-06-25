@@ -128,71 +128,33 @@ typedef enum {
     }
     else if(self.currentOperationType == Resize && controlPointView != self.imageView) {
         
-        if((self.centerLeftControl.centerY < self.centerTopControl.centerY && self.centerLeftControl.centerY > self.centerBottomControl.centerY) ||
-           (self.centerLeftControl.centerY > self.centerTopControl.centerY && self.centerLeftControl.centerY < self.centerBottomControl.centerY)) {
-            
-            if(controlPointView == self.centerLeftControl) {
-                self.topLeftControl.centerX += translation.x;
-                //self.topLeftControl.centerY += translation.y;
-                self.bottomLeftControl.centerX += translation.x;
-                //self.bottomLeftControl.centerY += translation.y;
-            }
-            else if(controlPointView == self.centerTopControl) {
-                
-                //self.topLeftControl.centerX += translation.x;
-                self.topLeftControl.centerY += translation.y;
-                //self.topRightControl.centerX += translation.x;
-                self.topRightControl.centerY += translation.y;
-            }
-            else if(controlPointView == self.centerRightControl) {
-                
-                self.topRightControl.centerX += translation.x;
-                //self.topRightControl.centerY += translation.y;
-                self.bottomRightControl.centerX += translation.x;
-                //self.bottomRightControl.centerY += translation.y;
-            }
-            else if(controlPointView == self.centerBottomControl) {
-                
-                //self.bottomRightControl.centerX += translation.x;
-                self.bottomRightControl.centerY += translation.y;
-                //self.bottomLeftControl.centerX += translation.x;
-                self.bottomLeftControl.centerY += translation.y;
-            }
-            
+        if(controlPointView == self.centerLeftControl) {
+            self.topLeftControl.centerX += translation.x;
+            self.topLeftControl.centerY += translation.y;
+            self.bottomLeftControl.centerX += translation.x;
+            self.bottomLeftControl.centerY += translation.y;
         }
-        
-        else {
+        else if(controlPointView == self.centerTopControl) {
             
-            if(controlPointView == self.centerLeftControl) {
-                //self.topLeftControl.centerX += translation.x;
-                self.topLeftControl.centerY += translation.y;
-                //self.bottomLeftControl.centerX += translation.x;
-                self.bottomLeftControl.centerY += translation.y;
-            }
-            else if(controlPointView == self.centerTopControl) {
-                
-                self.topLeftControl.centerX += translation.x;
-                //self.topLeftControl.centerY += translation.y;
-                self.topRightControl.centerX += translation.x;
-                //self.topRightControl.centerY += translation.y;
-            }
-            else if(controlPointView == self.centerRightControl) {
-                
-                //self.topRightControl.centerX += translation.x;
-                self.topRightControl.centerY += translation.y;
-                //self.bottomRightControl.centerX += translation.x;
-                self.bottomRightControl.centerY += translation.y;
-            }
-            else if(controlPointView == self.centerBottomControl) {
-                
-                self.bottomRightControl.centerX += translation.x;
-                //self.bottomRightControl.centerY += translation.y;
-                self.bottomLeftControl.centerX += translation.x;
-                //self.bottomLeftControl.centerY += translation.y;
-            }
+            self.topLeftControl.centerX += translation.x;
+            self.topLeftControl.centerY += translation.y;
+            self.topRightControl.centerX += translation.x;
+            self.topRightControl.centerY += translation.y;
         }
-        
-        
+        else if(controlPointView == self.centerRightControl) {
+            
+            self.topRightControl.centerX += translation.x;
+            self.topRightControl.centerY += translation.y;
+            self.bottomRightControl.centerX += translation.x;
+            self.bottomRightControl.centerY += translation.y;
+        }
+        else if(controlPointView == self.centerBottomControl) {
+            
+            self.bottomRightControl.centerX += translation.x;
+            self.bottomRightControl.centerY += translation.y;
+            self.bottomLeftControl.centerX += translation.x;
+            self.bottomLeftControl.centerY += translation.y;
+        }
         
     }
     
@@ -370,12 +332,7 @@ typedef enum {
     
     self.tabbar.hidden = YES;
     
-    UIImage *backgroundImage = self.backgroundImageView.image;
-    UIImage *maskImage = [UIImage imageWithCGImage:self.imageView.image.CGImage];
-    CGSize imageSize = CGSizeMake(backgroundImage.size.width, backgroundImage.size.height);
-    
-    UIImage *mergedImage = [self mergeImage:maskImage overImage:backgroundImage inSize:imageSize];
-    mergedImage = [self takeSnapshotOfView:self.view];
+    UIImage *mergedImage = [self takeSnapshotOfView:self.view];
     NSArray *excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypeMessage];
     
     UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[mergedImage] applicationActivities:nil];
