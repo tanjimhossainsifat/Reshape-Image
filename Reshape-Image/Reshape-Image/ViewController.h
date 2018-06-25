@@ -11,11 +11,11 @@
 @interface ViewController : UIViewController <UIGestureRecognizerDelegate, UITabBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *stickerImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *topLeftControl;
-@property (weak, nonatomic) IBOutlet UIImageView *topRightControl;
-@property (weak, nonatomic) IBOutlet UIImageView *bottomRightControl;
-@property (weak, nonatomic) IBOutlet UIImageView *bottomLeftControl;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIView *topLeftControl;
+@property (weak, nonatomic) IBOutlet UIView *topRightControl;
+@property (weak, nonatomic) IBOutlet UIView *bottomRightControl;
+@property (weak, nonatomic) IBOutlet UIView *bottomLeftControl;
 
 
 @end

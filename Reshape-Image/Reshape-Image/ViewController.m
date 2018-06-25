@@ -7,16 +7,92 @@
 //
 
 #import "ViewController.h"
+#import <AGGeometryKit/AGGeometryKit.h>
+
 
 @interface ViewController ()
+
+@property (nonatomic, strong) UIView *maskView;
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    [self.imageView.layer ensureAnchorPointIsSetToZero];
+    
+    self.imageView.layer.quadrilateral = AGKQuadMake(self.topLeftControl.center,
+                                                     self.topRightControl.center,
+                                                     self.bottomRightControl.center,
+                                                     self.bottomLeftControl.center);
+    
+//    [self createOverlay];
+    //[self updateOverlay];
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return YES;
+}
+
+- (IBAction)panGestureChanged:(UIPanGestureRecognizer *)recognizer
+{
+    UIImageView *controlPointView = (UIImageView *)[recognizer view];
+    controlPointView.highlighted = recognizer.state == UIGestureRecognizerStateChanged;
+    
+    CGPoint translation = [recognizer translationInView:self.view];
+    controlPointView.centerX += translation.x;
+    controlPointView.centerY += translation.y;
+    [recognizer setTranslation:CGPointZero inView:self.view];
+    
+    self.imageView.layer.quadrilateral = AGKQuadMake(self.topLeftControl.center,
+                                                     self.topRightControl.center,
+                                                     self.bottomRightControl.center,
+                                                     self.bottomLeftControl.center);
+    
+//    [self updateOverlay];
+}
+
+- (void)createOverlay
+{
+    self.maskView = [[UIView alloc] init];
+    self.maskView.center = self.imageView.center;
+    self.maskView.layer.shadowColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5].CGColor;
+    self.maskView.layer.shadowOpacity = 1.0;
+    self.maskView.layer.shadowRadius = 0.0;
+    self.maskView.layer.shadowOffset = CGSizeZero;
+    self.maskView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    self.maskView.userInteractionEnabled = NO;
+    self.maskView.hidden = YES;
+    [self.view insertSubview:self.maskView aboveSubview:self.imageView];
+}
+
+- (void)updateOverlay
+{
+    UIColor *redColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5];
+    UIColor *greenColor = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:0.5];
+    
+    AGKQuad quad = AGKQuadMake(self.topLeftControl.center,
+                               self.topRightControl.center,
+                               self.bottomRightControl.center,
+                               self.bottomLeftControl.center);
+    
+    self.maskView.layer.position = CGPointZero;
+    self.maskView.layer.shadowPath = [UIBezierPath bezierPathWithAGKQuad:quad].CGPath;
+    self.maskView.layer.shadowColor = AGKQuadIsConvex(quad) ? greenColor.CGColor : redColor.CGColor;
 }
 
 #pragma mark - UITabbarDelegte methods
@@ -79,7 +155,7 @@
 - (void) saveImageToLibrary {
     
     UIImage *backgroundImage = self.backgroundImageView.image;
-    UIImage *maskImage = self.stickerImageView.image;
+    UIImage *maskImage = self.imageView.image;
     CGSize imageSize = CGSizeMake(backgroundImage.size.width, backgroundImage.size.height);
     
     UIImage *mergedImage = [self mergeImage:maskImage overImage:backgroundImage inSize:imageSize];

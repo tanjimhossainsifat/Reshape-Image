@@ -41,21 +41,33 @@
                                 <rect key="frame" x="62" y="154" width="250" height="250"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="opt-SX-lLI">
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="opt-SX-lLI">
                                 <rect key="frame" x="53" y="145" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ErQ-fe-5nR" appends="YES" id="gzQ-gw-XIM"/>
+                                </connections>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="bZM-nQ-BT6">
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="bZM-nQ-BT6">
                                 <rect key="frame" x="301" y="145" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="eoc-pR-d8K" appends="YES" id="ITU-tA-pPT"/>
+                                </connections>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="J9J-Gy-q5f">
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="J9J-Gy-q5f">
                                 <rect key="frame" x="301" y="392" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Qja-c3-FlY" appends="YES" id="xJN-vG-3HS"/>
+                                </connections>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="YNk-mP-JNb">
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="YNk-mP-JNb">
                                 <rect key="frame" x="53" y="392" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="6Rc-5A-aLw" appends="YES" id="0Me-YH-yAX"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -65,12 +77,36 @@
                         <outlet property="backgroundImageView" destination="ndX-Dg-InW" id="RJl-iW-cRE"/>
                         <outlet property="bottomLeftControl" destination="YNk-mP-JNb" id="sJI-cf-5aD"/>
                         <outlet property="bottomRightControl" destination="J9J-Gy-q5f" id="52c-et-liD"/>
-                        <outlet property="stickerImageView" destination="rkP-54-wUA" id="Bcb-iF-ng8"/>
+                        <outlet property="imageView" destination="rkP-54-wUA" id="vwn-cq-Eon"/>
                         <outlet property="topLeftControl" destination="opt-SX-lLI" id="hq0-pM-GVt"/>
                         <outlet property="topRightControl" destination="bZM-nQ-BT6" id="wKU-x3-Opn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="ErQ-fe-5nR">
+                    <connections>
+                        <action selector="panGestureChanged:" destination="BYZ-38-t0r" id="fbS-YB-M9b"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="UoM-jP-Ep3"/>
+                    </connections>
+                </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="eoc-pR-d8K">
+                    <connections>
+                        <action selector="panGestureChanged:" destination="BYZ-38-t0r" id="Yrc-25-aRs"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="oCk-cy-JSP"/>
+                    </connections>
+                </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Qja-c3-FlY">
+                    <connections>
+                        <action selector="panGestureChanged:" destination="BYZ-38-t0r" id="3Hi-Lr-yjC"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="uhm-Ri-eVx"/>
+                    </connections>
+                </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="6Rc-5A-aLw">
+                    <connections>
+                        <action selector="panGestureChanged:" destination="BYZ-38-t0r" id="yxF-qc-olQ"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="TJs-DD-RfH"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="37.600000000000001" y="31.934032983508249"/>
         </scene>
