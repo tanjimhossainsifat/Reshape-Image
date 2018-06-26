@@ -30,6 +30,10 @@ typedef enum {
 
 @implementation ViewController
 
+- (BOOL) shouldAutorotate {
+    return NO;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

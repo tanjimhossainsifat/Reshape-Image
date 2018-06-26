@@ -21,69 +21,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ndX-Dg-InW">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="654"/>
                             </imageView>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sticker" translatesAutoresizingMaskIntoConstraints="NO" id="rkP-54-wUA">
-                                <rect key="frame" x="62" y="154" width="250" height="250"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="pzE-yc-9u3" appends="YES" id="Rib-fl-Bpn"/>
-                                </connections>
-                            </imageView>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="opt-SX-lLI">
-                                <rect key="frame" x="53" y="145" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="ErQ-fe-5nR" appends="YES" id="gzQ-gw-XIM"/>
-                                </connections>
-                            </imageView>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="bZM-nQ-BT6">
-                                <rect key="frame" x="301" y="145" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="eoc-pR-d8K" appends="YES" id="ITU-tA-pPT"/>
-                                </connections>
-                            </imageView>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="J9J-Gy-q5f">
-                                <rect key="frame" x="301" y="392" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="Qja-c3-FlY" appends="YES" id="xJN-vG-3HS"/>
-                                </connections>
-                            </imageView>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="YNk-mP-JNb">
-                                <rect key="frame" x="53" y="392" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="6Rc-5A-aLw" appends="YES" id="0Me-YH-yAX"/>
-                                </connections>
-                            </imageView>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="OVi-FP-cTW">
-                                <rect key="frame" x="53" y="269" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="vNR-Sh-Dy8" appends="YES" id="TY9-4c-WFI"/>
-                                </connections>
-                            </imageView>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="Kol-Cs-fHO">
-                                <rect key="frame" x="177" y="145" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="R4E-Ip-nJ0" appends="YES" id="ESm-Kl-blA"/>
-                                </connections>
-                            </imageView>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="qVU-L8-ciG">
-                                <rect key="frame" x="294" y="278" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="l2N-9F-KCC" appends="YES" id="ffj-jT-7tx"/>
-                                </connections>
-                            </imageView>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="Ywr-bE-WrN">
-                                <rect key="frame" x="177" y="392" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="CyU-Al-zXL" appends="YES" id="Lq5-jB-GIY"/>
-                                </connections>
-                            </imageView>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7P-yU-l5P">
                                 <rect key="frame" x="0.0" y="597" width="375" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -100,6 +37,69 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="wra-e6-EAe"/>
                                 </connections>
                             </tabBar>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sticker" translatesAutoresizingMaskIntoConstraints="NO" id="rkP-54-wUA">
+                                <rect key="frame" x="25" y="58" width="250" height="250"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="pzE-yc-9u3" appends="YES" id="Rib-fl-Bpn"/>
+                                </connections>
+                            </imageView>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="opt-SX-lLI">
+                                <rect key="frame" x="16" y="49" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ErQ-fe-5nR" appends="YES" id="gzQ-gw-XIM"/>
+                                </connections>
+                            </imageView>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="bZM-nQ-BT6">
+                                <rect key="frame" x="264" y="49" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="eoc-pR-d8K" appends="YES" id="ITU-tA-pPT"/>
+                                </connections>
+                            </imageView>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="J9J-Gy-q5f">
+                                <rect key="frame" x="264" y="296" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Qja-c3-FlY" appends="YES" id="xJN-vG-3HS"/>
+                                </connections>
+                            </imageView>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="YNk-mP-JNb">
+                                <rect key="frame" x="16" y="296" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="6Rc-5A-aLw" appends="YES" id="0Me-YH-yAX"/>
+                                </connections>
+                            </imageView>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="OVi-FP-cTW">
+                                <rect key="frame" x="16" y="173" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="vNR-Sh-Dy8" appends="YES" id="TY9-4c-WFI"/>
+                                </connections>
+                            </imageView>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="Kol-Cs-fHO">
+                                <rect key="frame" x="140" y="49" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="R4E-Ip-nJ0" appends="YES" id="ESm-Kl-blA"/>
+                                </connections>
+                            </imageView>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="qVU-L8-ciG">
+                                <rect key="frame" x="257" y="182" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="l2N-9F-KCC" appends="YES" id="ffj-jT-7tx"/>
+                                </connections>
+                            </imageView>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="controlpoint" highlightedImage="controlpoint_h" translatesAutoresizingMaskIntoConstraints="NO" id="Ywr-bE-WrN">
+                                <rect key="frame" x="140" y="296" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="CyU-Al-zXL" appends="YES" id="Lq5-jB-GIY"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
